@@ -6,34 +6,25 @@ const sessionsRouter = Router();
 
 // POST METHODS
 sessionsRouter.post('/', async (request, response) => {
-	try {
+	const { email, password } = request.body;
 
-		const { email, password } = request.body;
+	const authUser = new CreateAuthService();
 
-		const authUser = new CreateAuthService();
+	const { user, token } = await authUser.execute({
+		email,
+		password
+	});
 
-		const { user, token } = await authUser.execute({
-			email,
-			password
-		});
+	delete user.password;
 
-		delete user.password;
-
-		return response.json({
-			status: 'success',
-			message: '',
-			list: {
-				user,
-				token
-			},
-		});
-
-	} catch (err) {
-		return response.status(400).json({
-			status: 'error',
-			message: err.message
-		});
-	}
+	return response.json({
+		status: 'success',
+		message: '',
+		list: {
+			user,
+			token
+		},
+	});
 });
 
 export default sessionsRouter;
