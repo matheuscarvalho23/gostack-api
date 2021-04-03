@@ -2,10 +2,10 @@ import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 import { parseISO } from 'date-fns';
 
-import AppointmentsRepository from '../repositories/AppointmentsRepository';
-import CreateAppointmentService from '../services/CreateAppointmentService';
+import AppointmentsRepository from '@modules/appointments/repositories/AppointmentsRepository';
+import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService';
 
-import ensureAuth from '../middlewares/ensureAuth';
+import ensureAuth from '@modules/users/infra/http/middlewares/ensureAuth';
 
 const appointmentsRouter = Router();
 
@@ -18,7 +18,7 @@ appointmentsRouter.get('/', async (request, response) => {
 
 	return response.json({
 		status: 'success',
-		list: appointments
+		list: appointments,
 	});
 });
 
@@ -38,7 +38,7 @@ appointmentsRouter.post('/', async (request, response) => {
 	return response.json({
 		status: 'success',
 		message: 'Successfully created appointment!',
-		list: appointment
+		list: appointment,
 	});
 });
 

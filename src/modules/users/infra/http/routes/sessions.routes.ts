@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import CreateAuthService from '../services/CreateAuthService';
+import CreateAuthService from '@modules/users/services/CreateAuthService';
 
 const sessionsRouter = Router();
 
@@ -12,17 +12,17 @@ sessionsRouter.post('/', async (request, response) => {
 
 	const { user, token } = await authUser.execute({
 		email,
-		password
+		password,
 	});
 
-	delete user.password;
+	// delete user.password;
 
 	return response.json({
 		status: 'success',
 		message: '',
 		list: {
 			user,
-			token
+			token,
 		},
 	});
 });
