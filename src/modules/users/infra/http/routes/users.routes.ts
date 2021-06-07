@@ -42,7 +42,7 @@ usersRouter.patch(
 			avatarFile: request.file.filename,
 		});
 
-		delete user.password;
+		// delete user.password;
 
 		return response.json({
 			status: 'error',
